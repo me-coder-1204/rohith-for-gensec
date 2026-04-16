@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohith S — GenSec II, IIT Hyderabad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d14;
+    --card: #15151f;
+    --card2: #1a1a28;
+    --orange: #ff6b35;
+    --yellow: #ffd166;
+    --teal: #06d6a0;
+    --purple: #a78bfa;
+    --white: #f8f8fc;
+    --muted: rgba(248,248,252,0.5);
+    --border: rgba(255,255,255,0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 3.5rem;
+    background: rgba(13,13,20,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--white); }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta { background: var(--orange); color: #fff; padding: 0.5rem 1.3rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: opacity 0.2s; }
+  .nav-cta:hover { opacity: 0.85; }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 3.5rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-blob1 { position: absolute; top: -120px; right: -80px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,107,53,0.18) 0%, transparent 65%); pointer-events: none; }
+  .hero-blob2 { position: absolute; bottom: -80px; left: 20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(6,214,160,0.12) 0%, transparent 65%); pointer-events: none; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index:1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: rgba(255,107,53,0.12); border: 1px solid rgba(255,107,53,0.3);
+    color: var(--orange); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.45rem 1rem; border-radius: 100px; margin-bottom: 1.6rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .hero-eyebrow::before { content: ''; width:7px; height:7px; background: var(--orange); border-radius:50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+  .hero-name { font-family: 'Poppins', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem);white-space: nowrap; font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-name .hl { display: block; -webkit-text-fill-color: transparent; background: linear-gradient(90deg, var(--orange), var(--yellow)); -webkit-background-clip: text; background-clip: text; }
+  .hero-role { font-size: 1rem; color: var(--muted); margin: 1.4rem 0; line-height: 1.65; font-weight: 400; animation: fadeUp 0.6s 0.2s ease both; max-width: 400px; }
+  .hero-tagline { font-size: 1rem; font-style: italic; font-weight: 300; color: var(--teal); margin-bottom: 2rem; animation: fadeUp 0.6s 0.25s ease both; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+  .btn-primary { background: var(--orange); color: #fff; padding: 0.8rem 2rem; border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: transform 0.15s, opacity 0.15s; }
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+  .btn-outline { border: 1.5px solid rgba(255,255,255,0.2); color: var(--white); padding: 0.8rem 2rem; border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.88rem; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; animation: fadeIn 1s 0.4s ease both; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.6rem 1.4rem; transition: border-color 0.2s, transform 0.2s; }
+  .stat-card:hover { transform: translateY(-3px); }
+  .stat-card:nth-child(1):hover { border-color: rgba(255,107,53,0.4); }
+  .stat-card:nth-child(2):hover { border-color: rgba(6,214,160,0.4); }
+  .stat-card:nth-child(3):hover { border-color: rgba(167,139,250,0.4); }
+  .stat-card:nth-child(4):hover { border-color: rgba(255,209,102,0.4); }
+  .stat-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+  .stat-num { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.2rem; }
+  .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 400; line-height: 1.4; }
+  .co { color: var(--orange); } .ct { color: var(--teal); } .cp { color: var(--purple); } .cy { color: var(--yellow); }
+
+  section { padding: 6rem 0; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 3.5rem; }
+  .section-chip { display: inline-block; background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.25); color: var(--orange); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 100px; margin-bottom: 1rem; }
+  .section-title { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 3rem; }
+
+  #about { background: var(--card); }
+  .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: center; }
+  .about-text { font-size: 1.02rem; line-height: 1.85; color: rgba(248,248,252,0.75); font-weight: 300; }
+  .about-text p+p { margin-top: 1.2rem; }
+  .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+  .hl-item { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.4rem; display: flex; align-items: center; gap: 1rem; transition: border-color 0.2s; }
+  .hl-item:hover { border-color: rgba(255,107,53,0.4); }
+  .hl-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .hl-title { font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.15rem; }
+  .hl-sub { font-size: 0.78rem; color: var(--muted); }
+
+  #experience { background: var(--bg); }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .exp-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.6rem; transition: transform 0.2s, border-color 0.2s; }
+  .exp-card:hover { transform: translateY(-4px); }
+  .exp-card.a:hover { border-color: rgba(255,107,53,0.4); }
+  .exp-card.b:hover { border-color: rgba(167,139,250,0.4); }
+  .exp-card.c:hover { border-color: rgba(6,214,160,0.4); }
+  .exp-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
+  .exp-cat.a { color: var(--orange); } .exp-cat.b { color: var(--purple); } .exp-cat.c { color: var(--teal); }
+  .exp-item { padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .exp-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .exp-org { font-size: 0.78rem; color: var(--muted); }
+
+  #vision { background: linear-gradient(135deg, #0f0f1a 0%, #1a0f0a 50%, #0a1a0f 100%); position: relative; overflow: hidden; }
+  .vision-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(255,107,53,0.1) 0%, transparent 70%); pointer-events: none; }
+  .vision-inner { position: relative; z-index:1; max-width: 800px; margin: 0 auto; text-align: center; }
+  .vision-quote { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; line-height: 1.35; margin: 2rem 0; background: linear-gradient(135deg, var(--white) 0%, var(--yellow) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .vision-body { font-size: 0.98rem; line-height: 1.8; color: rgba(248,248,252,0.6); font-weight: 300; max-width: 600px; margin: 0 auto; }
+
+  #agenda { background: var(--card); }
+  .agenda-tabs { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .agenda-tab { padding: 0.6rem 1.4rem; border-radius: 100px; border: 1.5px solid var(--border); background: transparent; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--muted); transition: all 0.2s; }
+  .agenda-tab.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .agenda-tab:hover:not(.active) { border-color: rgba(255,107,53,0.4); color: var(--orange); }
+  .agenda-panel { display: none; }
+  .agenda-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .ag-item { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem 1.6rem; transition: border-color 0.2s, transform 0.15s; }
+  .ag-item:hover { border-color: rgba(255,107,53,0.3); transform: translateY(-2px); }
+  .ag-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.7rem; border-radius: 100px; margin-bottom: 0.8rem; }
+  .to { background: rgba(255,107,53,0.15); color: var(--orange); }
+  .tt { background: rgba(6,214,160,0.12); color: var(--teal); }
+  .tp { background: rgba(167,139,250,0.12); color: var(--purple); }
+  .ag-title { font-family: 'Poppins', sans-serif; font-size: 0.97rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .ag-desc { font-size: 0.84rem; line-height: 1.7; color: rgba(248,248,252,0.55); font-weight: 300; }
+
+  #duties { background: var(--bg); }
+  .duties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .duty-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem 1.6rem; display: flex; gap: 1.2rem; transition: border-color 0.2s; }
+  .duty-card:hover { border-color: rgba(255,209,102,0.3); }
+  .duty-num { font-family: 'Poppins', sans-serif; font-size: 2.2rem; font-weight: 800; color: rgba(255,209,102,0.2); line-height: 1; flex-shrink: 0; }
+  .duty-title { font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .duty-desc { font-size: 0.82rem; line-height: 1.65; color: rgba(248,248,252,0.5); }
+
+  #contact { background: var(--card); text-align: center; padding: 6rem 0 5rem; }
+  .contact-tagline { font-size: 1rem; color: var(--muted); font-weight: 300; margin: -1.5rem 0 3rem; font-style: italic; }
+  .contact-cards { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; margin-top: 2rem; }
+  .contact-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem 2rem; text-decoration: none; transition: border-color 0.2s, transform 0.15s; min-width: 200px; }
+  .contact-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+  .cc-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .cc-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .cc-val { font-size: 0.88rem; font-weight: 500; color: var(--white); }
+
+  footer { background: #09090f; text-align: center; padding: 1.5rem; font-size: 0.72rem; color: rgba(255,255,255,0.2); letter-spacing: 0.08em; font-family: 'Poppins', sans-serif; }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;} .nav-links,.nav-cta{display:none;}
+    .hero{padding:7rem 1.5rem 4rem;} .hero-inner{grid-template-columns:1fr;}
+    .hero-stats{grid-template-columns:1fr 1fr;}
+    .about-grid,.exp-grid{grid-template-columns:1fr;}
+    .agenda-panel.active,.duties-grid{grid-template-columns:1fr;}
+    .container{padding:0 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Rohith <span>S</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<section class="hero" id="header">
+  <div class="hero-blob1"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">IIT Hyderabad · Gymkhana 2026–27</div>
+      <h1 class="hero-name">Rohith&nbsp;S</h1>
+      <p class="hero-role">Nominee for <strong>General Secretary – II</strong>, Student Gymkhana. 2nd Year · Industrial Chemistry.</p>
+      <p class="hero-tagline">"Simple things done right can make a big difference."</p>
+      <div class="hero-btns">
+        <a href="#agenda" class="btn-primary">See My Agenda →</a>
+        <a href="#about" class="btn-outline">About Me</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-icon">🎪</div>
+        <div class="stat-num co">IICM 8.0</div>
+        <div class="stat-label">Logistics Head, Inter IIT Cultural Meet</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🤝</div>
+        <div class="stat-num ct">FCC</div>
+        <div class="stat-label">Corporate Partnership & Growth Coordinator</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📖</div>
+        <div class="stat-num cp">LitSoc</div>
+        <div class="stat-label">Word & Board Games Club Head</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎉</div>
+        <div class="stat-num cy">Diesta</div>
+        <div class="stat-label">Events Head, Diesta 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="section-chip">Who I Am</div>
+        <h2 class="section-title">About Myself</h2>
+        <div class="about-text">
+          <p>I'm a 2nd year undergrad from the Department of Industrial Chemistry at IIT Hyderabad — and I've spent this past year deeply involved in making campus life more vibrant, connected, and organized.</p>
+          <p>From heading large-scale Inter-IIT logistics to managing sponsorships, fostering alumni connections, and leading club activities, I've experienced our campus from many angles. I know what works, and I know what needs fixing.</p>
+          <p>I'm not here to make big promises. I'm here to do the small things well — because that's what actually changes how you feel waking up every morning at IITH.</p>
+        </div>
+      </div>
+      <div class="about-highlights reveal">
+        <div class="hl-item">
+          <div class="hl-icon" style="background:rgba(255,107,53,0.15);">🏛️</div>
+          <div><div class="hl-title">2nd Year Undergraduate</div><div class="hl-sub">Industrial Chemistry · IIT Hyderabad</div></div>
+        </div>
+        <div class="hl-item">
+          <div class="hl-icon" style="background:rgba(6,214,160,0.12);">🤝</div>
+          <div><div class="hl-title">Leadership & Events</div><div class="hl-sub">Inter IIT, Diesta, Literary Society</div></div>
+        </div>
+        <div class="hl-item">
+          <div class="hl-icon" style="background:rgba(167,139,250,0.12);">💬</div>
+          <div><div class="hl-title">Communication & Debate</div><div class="hl-sub">Debate Club Core · IICM 8.0 Contingent</div></div>
+        </div>
+        <div class="hl-item">
+          <div class="hl-icon" style="background:rgba(255,209,102,0.12);">🎯</div>
+          <div><div class="hl-title">Sponsorship & Alumni Outreach</div><div class="hl-sub">FCC · Alumni Cell, IITH</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-chip">Track Record</div>
+      <h2 class="section-title">Roles & Experience</h2>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card a reveal">
+        <div class="exp-cat a">Leadership</div>
+        <div class="exp-item"><div class="exp-name">Logistics Head, Inter IIT Cultural Meet 8.0</div><div class="exp-org">IIT Kanpur · 2025</div></div>
+        <div class="exp-item"><div class="exp-name">Word & Board Games Club Head</div><div class="exp-org">Literary Society · 2025–26</div></div>
+        <div class="exp-item"><div class="exp-name">Events Head, Diesta 2026</div><div class="exp-org">IIT Hyderabad</div></div>
+      </div>
+      <div class="exp-card b reveal">
+        <div class="exp-cat b">Sponsorship & Finance</div>
+        <div class="exp-item"><div class="exp-name">Corporate Partnership & Growth Coordinator</div><div class="exp-org">FCC · 2025–26</div></div>
+        <div class="exp-item"><div class="exp-name">Ideation & Operations Coordinator</div><div class="exp-org">Alumni Cell · 2025–26</div></div>
+      </div>
+      <div class="exp-card c reveal">
+        <div class="exp-cat c">Communication & Outreach</div>
+        <div class="exp-item"><div class="exp-name">Core Member, Debate Club</div><div class="exp-org">2025–26</div></div>
+        <div class="exp-item"><div class="exp-name">Speaking Arts & Quiz Arts Contingent</div><div class="exp-org">IICM 8.0 · IIT Kanpur</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vision">
+  <div class="vision-glow"></div>
+  <div class="container">
+    <div class="vision-inner">
+      <div class="section-chip reveal">What Drives Me</div>
+      <h2 class="section-title reveal" style="text-align:center">My Vision</h2>
+      <p class="vision-quote reveal">"Building the campus every student deserves."</p>
+      <p class="vision-body reveal">A campus that offers the best experience in every aspect — from daily facilities to events, opportunities, and overall student life. Together, we can create an institute that stands among the best in India and gives us memories and experiences worth cherishing.</p>
+    </div>
+  </div>
+</section>
+
+<section id="agenda">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-chip">What I'll Do</div>
+      <h2 class="section-title">My Agenda</h2>
+    </div>
+    <div class="agenda-tabs reveal">
+      <button class="agenda-tab active" onclick="showTab('everyday',this)">🏠 Everyday Life</button>
+      <button class="agenda-tab" onclick="showTab('infra',this)">🏗️ Infrastructure</button>
+      <button class="agenda-tab" onclick="showTab('culture',this)">🌱 Culture & Growth</button>
+    </div>
+
+    <div id="tab-everyday" class="agenda-panel active">
+      <div class="ag-item"><div class="ag-tag to">Hostel</div><div class="ag-title">Printers in Hostels</div><div class="ag-desc">Installing printers in new and old hostel offices so students can print using their own A4 sheets without leaving campus.</div></div>
+      <div class="ag-item"><div class="ag-tag tt">Facilities</div><div class="ag-title">Clean Drinking Water</div><div class="ag-desc">Improving hostel water purification infrastructure and maintenance systems for reliable, safe access.</div></div>
+      <div class="ag-item"><div class="ag-tag to">Comfort</div><div class="ag-title">Hostel Circle Revamp</div><div class="ag-desc">Detachable sheds and permanent seats near Hostel Circle for shade during peak hours — a better hangout spot.</div></div>
+      <div class="ag-item"><div class="ag-tag tt">Food</div><div class="ag-title">Morning Food Option</div><div class="ag-desc">Introducing a dedicated morning canteen vendor in the academic area to solve the breakfast gap on campus.</div></div>
+      <div class="ag-item"><div class="ag-tag tp">Events</div><div class="ag-title">Ice Cream Night at Diesta</div><div class="ag-desc">Re-introducing Ice Cream Night during Diesta — small things that add up to a better campus experience.</div></div>
+      <div class="ag-item"><div class="ag-tag to">Clubs</div><div class="ag-title">Dedicated Club Rooms</div><div class="ag-desc">Allocating dedicated rooms within SNCC and academic blocks to eliminate booking difficulties for student groups.</div></div>
+      <div class="ag-item"><div class="ag-tag tt">Transport</div><div class="ag-title">Better Weekend Buses</div><div class="ag-desc">Increasing bus frequency to Patancheru to one-hour intervals on weekends to reduce overcrowding.</div></div>
+      <div class="ag-item"><div class="ag-tag tp">Digital</div><div class="ag-title">IITH Dashboard Upgrade</div><div class="ag-desc">Enhancing the campus dashboard with Lambda Club — event updates, mess menu changes, and a complaint section.</div></div>
+    </div>
+
+    <div id="tab-infra" class="agenda-panel">
+      <div class="ag-item"><div class="ag-tag to">Canteen</div><div class="ag-title">Old Canteen Complete Revamp</div><div class="ag-desc">New vendors (talks with IIT Madras vendors ongoing), Shawarma, ice cream, proper gates, and renovated washrooms.</div></div>
+      <div class="ag-item"><div class="ag-tag tt">Sports</div><div class="ag-title">Shared Sports Equipment</div><div class="ag-desc">TT and badminton equipment at SNCC via a security sign-out system — easy access for everyone.</div></div>
+      <div class="ag-item"><div class="ag-tag tp">Media</div><div class="ag-title">Podcast Room at SNCC</div><div class="ag-desc">A dedicated recording room with Media Council for club content and speaker talks.</div></div>
+      <div class="ag-item"><div class="ag-tag to">Food Quality</div><div class="ag-title">Canteen Monitoring Council</div><div class="ag-desc">Restructuring the council for consistent hygiene checks across Udupi, Frescos, Isthara, and Monginis.</div></div>
+      <div class="ag-item"><div class="ag-tag tt">Events</div><div class="ag-title">1000-Seat Multipurpose Hall</div><div class="ag-desc">Pushing for a fully equipped event space for large-scale campus events without space constraints.</div></div>
+    </div>
+
+    <div id="tab-culture" class="agenda-panel">
+      <div class="ag-item"><div class="ag-tag to">Social</div><div class="ag-title">Campfire Nights with Jamming</div><div class="ag-desc">Frequent campfire nights with Vibes in the old hostel area — informal, stress-free social spaces for all.</div></div>
+      <div class="ag-item"><div class="ag-tag tt">Recognition</div><div class="ag-title">Inter-IIT Felicitation</div><div class="ag-desc">Annual recognition during Gymkhana Day for Inter-IIT participants across cultural, technical, and sports meets.</div></div>
+      <div class="ag-item"><div class="ag-tag tp">Community</div><div class="ag-title">Hostel Decoration Day</div><div class="ag-desc">Re-introducing Hostel Decoration Day as part of Milan for student creativity and hostel pride.</div></div>
+      <div class="ag-item"><div class="ag-tag to">Career</div><div class="ag-title">Centralized CV Repository</div><div class="ag-desc">A searchable database of senior and alumni profiles across diverse fields for placements and internships.</div></div>
+      <div class="ag-item"><div class="ag-tag tt">Mentorship</div><div class="ag-title">Flash Mentorship Program</div><div class="ag-desc">Quick alumni connections via Alumni Cell for career advice, higher studies, and industry insights.</div></div>
+      <div class="ag-item"><div class="ag-tag tp">Research</div><div class="ag-title">UG / PG Interaction</div><div class="ag-desc">Pairing undergrads with PG and PhD scholars for mentorship and early research exposure.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="duties">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-chip">The Role</div>
+      <h2 class="section-title">What GenSec II Does</h2>
+    </div>
+    <div class="duties-grid">
+      <div class="duty-card reveal"><div class="duty-num">01</div><div><div class="duty-title">Hostel & Student Welfare</div><div class="duty-desc">Address issues in hostel life and catering in the boys' hostel area for student comfort and well-being.</div></div></div>
+      <div class="duty-card reveal"><div class="duty-num">02</div><div><div class="duty-title">Student Advising</div><div class="duty-desc">Guidance and support on academic, personal, and institutional matters.</div></div></div>
+      <div class="duty-card reveal"><div class="duty-num">03</div><div><div class="duty-title">Records & Automation</div><div class="duty-desc">Oversee automation of Student Gymkhana records for transparency and efficiency.</div></div></div>
+      <div class="duty-card reveal"><div class="duty-num">04</div><div><div class="duty-title">Institute Events</div><div class="duty-desc">Coordinate major events like Foundation Day and Gymkhana Day with the Faculty In-charge.</div></div></div>
+      <div class="duty-card reveal"><div class="duty-num">05</div><div><div class="duty-title">Agenda & Documentation</div><div class="duty-desc">Analyze student matters and prepare agendas for General Council meetings.</div></div></div>
+      <div class="duty-card reveal"><div class="duty-num">06</div><div><div class="duty-title">Gender Concerns Committee</div><div class="duty-desc">Student member of the Committee for Gender Concerns, participating in hearings when required.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-chip reveal" style="margin:0 auto 1rem;display:block;width:fit-content;">Reach Out</div>
+    <h2 class="section-title reveal" style="text-align:center;margin-bottom:1rem;">Let's Connect</h2>
+    <p class="contact-tagline reveal">Your vote, your campus, your future.</p>
+    <div class="contact-cards reveal">
+      <a class="contact-card" href="tel:+917538867625">
+        <div class="cc-icon">📞</div><div class="cc-label">Phone</div><div class="cc-val">+91 75388 67625</div>
+      </a>
+      <a class="contact-card" href="mailto:ic24btech11021@iith.ac.in">
+        <div class="cc-icon">✉️</div><div class="cc-label">Institute Email</div><div class="cc-val">ic24btech11021@iith.ac.in</div>
+      </a>
+      <a class="contact-card" href="mailto:Rohitsuresh023@gmail.com">
+        <div class="cc-icon">📧</div><div class="cc-label">Personal Email</div><div class="cc-val">Rohitsuresh023@gmail.com</div>
+      </a>
+      <a class="contact-card" href="https://instagram.com/rohit_for_gs" target="_blank">
+        <div class="cc-icon">📸</div><div class="cc-label">Instagram</div><div class="cc-val">@rohit_for_gs</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>ROHITH S · GENERAL SECRETARY II · IIT HYDERABAD GYMKHANA 2026–27</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.agenda-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.agenda-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
+
