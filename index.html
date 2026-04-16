@@ -29,14 +29,40 @@
     overflow-x: hidden;
   }
 
+  /* --- NEW BRANDING HEADER --- */
+  .top-branding {
+    background: var(--bg);
+    padding: 1.5rem 3.5rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .top-branding img {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--orange);
+  }
+  .top-branding h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .top-branding h1 span { color: var(--orange); }
+
   nav {
-    position: fixed; top:0; left:0; right:0; z-index:100;
+    position: sticky; /* Changed from fixed to push content below */
+    top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1rem 3.5rem;
     background: rgba(13,13,20,0.88);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
+  /* --------------------------- */
+
   .nav-logo { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--white); }
   .nav-logo span { color: var(--orange); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -46,9 +72,9 @@
   .nav-cta:hover { opacity: 0.85; }
 
   .hero {
-    min-height: 100vh;
+    min-height: calc(100vh - 150px); /* Adjusted for the new header height */
     display: flex; align-items: center;
-    padding: 8rem 3.5rem 5rem;
+    padding: 4rem 3.5rem 5rem; /* Reduced top padding since nav is sticky */
     position: relative; overflow: hidden;
   }
   .hero-blob1 { position: absolute; top: -120px; right: -80px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,107,53,0.18) 0%, transparent 65%); pointer-events: none; }
@@ -163,8 +189,11 @@
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
   @media(max-width:900px){
+    .top-branding { padding: 1.5rem 1.5rem 0.5rem; gap: 0.8rem; }
+    .top-branding img { height: 50px; width: 50px; }
+    .top-branding h1 { font-size: 1.4rem; }
     nav{padding:1rem 1.5rem;} .nav-links,.nav-cta{display:none;}
-    .hero{padding:7rem 1.5rem 4rem;} .hero-inner{grid-template-columns:1fr;}
+    .hero{padding:3rem 1.5rem 4rem;} .hero-inner{grid-template-columns:1fr;}
     .hero-stats{grid-template-columns:1fr 1fr;}
     .about-grid,.exp-grid{grid-template-columns:1fr;}
     .agenda-panel.active,.duties-grid{grid-template-columns:1fr;}
@@ -174,8 +203,13 @@
 </head>
 <body>
 
+<div class="top-branding">
+  <img src="ro.png.png" alt="Rohith S">
+  <h1>Rohith<span> S</span></h1>
+</div>
+
 <nav>
-  <div class="nav-logo">Rohith <span>S</span></div>
+  <div class="nav-logo">Campaign <span>2026</span></div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -395,4 +429,3 @@
 </script>
 </body>
 </html>
-
